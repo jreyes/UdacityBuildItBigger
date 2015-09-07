@@ -1,0 +1,45 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+
+    defaultConfig {
+        applicationId "com.vaporwarecorp.jokester.client"
+        minSdkVersion 17
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+
+        buildConfigField "String", "APP_ENGINE_URL", "\"https://builditbigger-1058.appspot.com/_ah/api\""
+        buildConfigField "String", "DEV_APP_ENGINE_URL", "\"http://10.0.3.2:8080/_ah/api/\""
+        buildConfigField "String", "TEST_DEVICE_ID", "\"51D15F0A50FCB447DBC48B38AB285C53\""
+    }
+    productFlavors {
+        paid {
+            applicationId "com.vaporwarecorp.jokester.client.paid"
+        }
+        free {
+            applicationId "com.vaporwarecorp.jokester.client.free"
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:23.0.1'
+
+    // progress bar
+    compile 'com.vlonjatg.android:progress-activity:1.1.1'
+
+    // Free version - Ads
+    freeCompile 'com.google.android.gms:play-services-ads:7.8.0'
+
+    compile project(':client-core')
+    compile project(path: ':server', configuration: 'android-endpoints')
+}
